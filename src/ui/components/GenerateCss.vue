@@ -3,6 +3,7 @@ import { showToast, writeTextToClipboard } from "../utils";
 import { computed, ref } from "vue";
 import CopyIcon from "../icons/CopyIcon.vue";
 import KoFiIcon from '../icons/KoFiIcon.vue'
+import WebsiteIcon from '../icons/WebsiteIcon.vue'
 
 let message = ref("");
 const disabled = computed(() => !message.value);
@@ -26,10 +27,16 @@ const copy = () => {
     <button class="btn" @click="copy()" :disabled="disabled" ref="btnCopy">
       <CopyIcon />
     </button>
-    <a class="btn kofi" href="https://ko-fi.com/oubbadbrahim" target="_blank">
-      <KoFiIcon />
-      <span>Buy me a coffee</span>
-    </a>
+    <div class="footer-actions">
+      <a class="btn footer-link kofi" href="https://ko-fi.com/oubbadbrahim" target="_blank" rel="noreferrer">
+        <KoFiIcon />
+        <span>Buy me a coffee</span>
+      </a>
+      <a class="btn footer-link website" href="https://brahimoubbad.com/posts/figma-box-shadow-to-css-plugin-guide" target="_blank" rel="noreferrer" title="See how to use">
+        <WebsiteIcon />
+        <span>See how to use</span>
+      </a>
+    </div>
   </div>
 </template>
 
@@ -50,15 +57,30 @@ const copy = () => {
   right: 0.8rem;
 }
 
-.btn.kofi {
+.footer-actions {
+  position: absolute;
+  bottom: 0.8rem;
+  left: 0.8rem;
   display: flex;
   align-items: center;
-  right: auto;
-  left: 0.8rem;
+  gap: 0.6rem;
+}
+
+.btn.footer-link {
+  position: static;
+  display: flex;
+  align-items: center;
   overflow: hidden;
 }
 
-.btn.kofi span {
+.btn.footer-link > svg,
+.btn.footer-link > img {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+}
+
+.btn.footer-link span {
   display: flex;
   align-items: center;
   max-width: 0;
@@ -67,7 +89,7 @@ const copy = () => {
   transition: 300ms ease-out;
 }
 
-.btn.kofi:hover span {
+.btn.footer-link:hover span {
   max-width: 15ch;
   margin-left: 0.4rem;
   margin-right: 0.4rem;
@@ -83,7 +105,8 @@ const copy = () => {
   pointer-events: none;
 }
 
-.btn:active {
+.btn:active,
+.btn:hover {
   color: greenyellow;
   border-color: greenyellow;
 }
